@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Formula Calculator</title>
+    <title>NSF Calculator</title>
     <style>
         body { font-family: sans-serif; padding: 20px; }
         input, button { margin: 5px; padding: 10px; }
@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <h2>Private Formula Calculator</h2>
+    <h2>Negative Straight Flange Calculator</h2>
 
     <label for="shellThk">Shell THK:</label>
     <input type="number" id="shellThk" placeholder="Enter Shell THK">
@@ -58,7 +58,7 @@
                 const data = await response.json();
                 
                 if (data.calculatedValue !== undefined) {
-                    resultElement.innerText = `Calculated Result: ${data.calculatedValue}`;
+                    resultElement.innerText = `Negative SF Length: ${data.calculatedValue}`;
                 } else {
                     resultElement.innerText = 'Calculation failed or returned an unexpected format.';
                 }

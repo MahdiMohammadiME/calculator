@@ -57,11 +57,11 @@
 
                 const data = await response.json();
                 
-                if (data.calculatedValue !== undefined) {
-                    resultElement.innerText = `
-                        <p>Negative SF Length: ${data.calculatedValue1}</p>
-                        <p>Head ID: ${data.calculatedValue2}</p>
-                        <p>Head OD: ${data.calculatedValue3}</p>`;
+                if (data.result1 !== undefined && data.result2 !== undefined && data.result3 !== undefined) {
+                    resultElement.innerHTML = `
+                        <p>Negative SF Length: ${data.result1}</p>
+                        <p>Head ID: ${data.result2}</p>
+                        <p>Head OD: ${data.result3}</p>`;
                 } else {
                     resultElement.innerText = 'Calculation failed or returned an unexpected format.';
                 }

@@ -58,7 +58,7 @@
                 const data = await response.json();
                 
                 if (data.result1 !== undefined && data.result2 !== undefined && data.result3 !== undefined) {
-                    resultElement.innerText = 'dd';
+                    resultElement.innerText = data.result1;
                     resultElement.innerHTML = '
                         <p>Negative SF Length: ${data.result1}</p>
                         <p>Head ID: ${data.result2}</p>

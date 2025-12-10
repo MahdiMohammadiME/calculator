@@ -1,5 +1,74 @@
-<input type="number" id="shellThk" placeholder="Shell THK">
-<input type="number" id="headThk" placeholder="Head THK">
-<input type="number" id="shellId" placeholder="Shell ID">
-<button onclick="getCalculation()">Calculate</button>
-<p id="result"></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formula Calculator</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        input, button { margin: 5px; padding: 10px; }
+        #result { font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <h2>Private Formula Calculator</h2>
+
+    <label for="shellThk">Shell THK:</label>
+    <input type="number" id="shellThk" placeholder="Enter Shell THK">
+    <br>
+    <label for="headThk">Head THK:</label>
+    <input type="number" id="headThk" placeholder="Enter Head THK">
+    <br>
+    <label for="shellId">Shell ID:</label>
+    <input type="number" id="shellId" placeholder="Enter Shell ID">
+    <br>
+    
+    <button onclick="getCalculation()">Calculate</button>
+
+    <p id="result">Result will appear here.</p>
+
+    <script>
+        // *** REPLACE THIS URL with the Web App URL you copied in Step 3 ***
+        const SCRIPT_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL'; 
+
+        async function getCalculation() {
+            const resultElement = document.getElementById('result');
+            resultElement.innerText = 'Calculating...';
+
+            const inputs = {
+                ShellTHK: document.getElementById('shellThk').value,
+                HeadTHK: document.getElementById('headThk').value,
+                ShellID: document.getElementById('shellId').value
+            };
+
+            // Check if all fields are filled
+            if (!inputs.ShellTHK || !inputs.HeadTHK || !inputs.ShellID) {
+                resultElement.innerText = 'Please enter all three values.';
+                return;
+            }
+
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    // Use 'text/plain' Content-Type to avoid CORS preflight issues 
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
+                    body: JSON.stringify(inputs)
+                });
+
+                const data = await response.json();
+                
+                if (data.calculatedValue !== undefined) {
+                    resultElement.innerText = `Calculated Result: ${data.calculatedValue}`;
+                } else {
+                    resultElement.innerText = 'Calculation failed or returned an unexpected format.';
+                }
+
+            } catch (error) {
+                console.error('Fetch Error:', error);
+                resultElement.innerText = 'An error occurred during calculation. Check the console for details.';
+            }
+        }
+    </script>
+
+</body>
+</html>

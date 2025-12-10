@@ -6,7 +6,8 @@
     <style>
         body { font-family: sans-serif; padding: 20px; }
         input, button { margin: 5px; padding: 10px; }
-        #result { font-weight: bold; margin-top: 15px; }
+        .output-section { margin-top: 15px; border-top: 1px solid #ccc; padding-top: 10px; }
+        .output-section p { font-weight: bold; }
     </style>
 </head>
 <body>
@@ -25,15 +26,25 @@
     
     <button onclick="getCalculation()">Calculate</button>
 
-    <p id="result">Result will appear here.</p>
+    <p id="status-message">Enter values above and click Calculate.</p>
 
+    <div class="output-section">
+        <p>Negative SF Length: <span id="output_sflength">--</span></p>
+        <p>Head ID: <span id="output_headid">--</span></p>
+        <p>Head OD: <span id="output_headod">--</span></p>
+    </div>
     <script>
         // *** REPLACE THIS URL with the Web App URL you copied in Step 3 ***
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRYv4j_Ymhmumx4tTWR0rwiG7cRuAH_ClLdt_SD-UFoQMypj3eNYL_lTT0hdrGl71-/exec'; 
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRYv4j_Ymhmumx4tTWR0rwiG7cRuAH_ClLdt_SD-UFoQMypj3eNYL_lTT0hdrGl71-/exec';
+
+        // Get the specific output elements once
+        const statusMessage = document.getElementById('status-message');
+        const sfLengthOutput = document.getElementById('output_sflength');
+        const headIdOutput = document.getElementById('output_headid');
+        const headOdOutput = document.getElementById('output_headod');
 
         async function getCalculation() {
-            const resultElement = document.getElementById('result');
-            resultElement.innerText = 'Calculating...';
+            statusMessage.innerText = 'Calculating...';
 
             const inputs = {
                 ShellTHK: document.getElementById('shellThk').value,
@@ -43,29 +54,41 @@
 
             // Check if all fields are filled
             if (!inputs.ShellTHK || !inputs.HeadTHK || !inputs.ShellID) {
-                resultElement.innerText = 'Please enter all three values.';
+                statusMessage.innerText = 'Please enter all three values.';
                 return;
             }
 
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    // Use 'text/plain' Content-Type to avoid CORS preflight issues 
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(inputs)
                 });
 
                 const data = await response.json();
                 
-                if (data.result1 !== undefined) {
-                    resultElement.innerText = `Negative SF Length: ${data.result1}`;
+                // Check for all three results
+                if (data.result1 !== undefined && data.result2 !== undefined && data.result3 !== undefined) {
+                    
+                    // Assign each result to its specific output span
+                    sfLengthOutput.innerText = data.result1;
+                    headIdOutput.innerText = data.result2;
+                    headOdOutput.innerText = data.result3;
+                    
+                    statusMessage.innerText = 'Calculation Complete!';
+                    
                 } else {
-                    resultElement.innerText = 'Calculation failed or returned an unexpected format.';
+                    // Update all output spans to indicate failure
+                    sfLengthOutput.innerText = '--';
+                    headIdOutput.innerText = '--';
+                    headOdOutput.innerText = '--';
+                    statusMessage.innerText = 'Calculation failed or returned missing values.';
+                    console.error('Server response data was missing expected results:', data);
                 }
 
             } catch (error) {
                 console.error('Fetch Error:', error);
-                resultElement.innerText = 'An error occurred during calculation. Check the console for details.';
+                statusMessage.innerText = 'An error occurred during calculation. Check the console for details.';
             }
         }
     </script>

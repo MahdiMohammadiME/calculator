@@ -58,7 +58,7 @@
                 const data = await response.json();
                 
                 if (data.result1 !== undefined && data.result2 !== undefined && data.result3 !== undefined) {
-                    resultElement.innerText = data.result1;
+                    resultElement.innerText = 'Negative SF Length: ${data.result1}';
                 } else {
                     resultElement.innerText = 'Calculation failed or returned an unexpected format.';
                 }

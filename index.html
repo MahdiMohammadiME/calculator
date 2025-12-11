@@ -79,7 +79,7 @@
 
       const res = await fetch("https://script.google.com/macros/s/AKfycby6iNsF_Zu10cijbjgman4Yhydde_AY0wxmULI9B4R1KtMGzbQJM8FgDi7IaZslNyDShg/exec", {
         method: "POST",
-        contentType: "application/json",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 

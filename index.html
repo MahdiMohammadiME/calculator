@@ -1,41 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pressure Vessel Calculator</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pressure Vessel Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+      background: #f5f5f5;
+    }
+    h2 { text-align: center; }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: #0066cc;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover { background: #004999; }
+    .result {
+      margin-top: 20px;
+      background: #e9ffe8;
+      padding: 15px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Pressure Vessel Head Calculator</h1>
-        
-        <div class="input-section">
-            <h2>Inputs</h2>
-            <form id="calculationForm">
-                <label for="shellThk">Shell THK:</label>
-                <input type="number" id="shellThk" required>
-                
-                <label for="headThk">Head THK:</label>
-                <input type="number" id="headThk" required>
-                
-                <label for="shellId">Shell ID:</label>
-                <input type="number" id="shellId" required>
-                
-                <button type="submit">Calculate Dimensions</button>
-            </form>
-        </div>
-        
-        <div class="output-section">
-            <h2>Outputs</h2>
-            <p><strong>Head ID:</strong> <span id="outputHeadId">---</span></p>
-            <p><strong>Head OD:</strong> <span id="outputHeadOd">---</span></p>
-            <p><strong>NSF Length:</strong> <span id="outputNsfLength">---</span></p>
-        </div>
 
-        <p class="status-message" id="statusMessage"></p>
+  <h2>Pressure Vessel Head Calculator</h2>
+
+  <div class="box">
+    <label>Shell THK:</label>
+    <input id="shell_thk" type="number" step="0.001" />
+
+    <label>Head THK:</label>
+    <input id="head_thk" type="number" step="0.001" />
+
+    <label>Shell ID:</label>
+    <input id="shell_id" type="number" step="0.001" />
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div id="result" class="result">
+      <p><b>Head ID:</b> <span id="out_head_id"></span></p>
+      <p><b>Head OD:</b> <span id="out_head_od"></span></p>
+      <p><b>NSF Length:</b> <span id="out_nsf_length"></span></p>
     </div>
+  </div>
 
-    <script src="script.js"></script>
+  <script>
+    async function calculate() {
+      const payload = {
+        shell_thk: document.getElementById("shell_thk").value,
+        head_thk: document.getElementById("head_thk").value,
+        shell_id: document.getElementById("shell_id").value
+      };
+
+      const res = await fetch("https://script.google.com/macros/s/AKfycby6iNsF_Zu10cijbjgman4Yhydde_AY0wxmULI9B4R1KtMGzbQJM8FgDi7IaZslNyDShg/exec", {
+        method: "POST",
+        contentType: "application/json",
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      document.getElementById("out_head_id").innerText = data.head_id;
+      document.getElementById("out_head_od").innerText = data.head_od;
+      document.getElementById("out_nsf_length").innerText = data.nsf_length;
+
+      document.getElementById("result").style.display = "block";
+    }
+  </script>
+
 </body>
 </html>

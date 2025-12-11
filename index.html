@@ -2,109 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NSF Calculator</title>
-    <style>
-        body { font-family: sans-serif; padding: 20px; }
-        input, button { margin: 5px; padding: 10px; }
-        .output-section { margin-top: 15px; border-top: 1px solid #ccc; padding-top: 10px; }
-        .output-section p { font-weight: bold; }
-        .error { color: red; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pressure Vessel Calculator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <h1>Pressure Vessel Head Calculator</h1>
+        
+        <div class="input-section">
+            <h2>Inputs</h2>
+            <form id="calculationForm">
+                <label for="shellThk">Shell THK:</label>
+                <input type="number" id="shellThk" required>
+                
+                <label for="headThk">Head THK:</label>
+                <input type="number" id="headThk" required>
+                
+                <label for="shellId">Shell ID:</label>
+                <input type="number" id="shellId" required>
+                
+                <button type="submit">Calculate Dimensions</button>
+            </form>
+        </div>
+        
+        <div class="output-section">
+            <h2>Outputs</h2>
+            <p><strong>Head ID:</strong> <span id="outputHeadId">---</span></p>
+            <p><strong>Head OD:</strong> <span id="outputHeadOd">---</span></p>
+            <p><strong>NSF Length:</strong> <span id="outputNsfLength">---</span></p>
+        </div>
 
-    <h2>Negative Straight Flange Calculator</h2>
-
-    <label for="shellThk">Shell THK:</label>
-    <input type="number" id="shellThk" placeholder="Enter Shell THK">
-    <br>
-    <label for="headThk">Head THK:</label>
-    <input type="number" id="headThk" placeholder="Enter Head THK">
-    <br>
-    <label for="shellId">Shell ID:</label>
-    <input type="number" id="shellId" placeholder="Enter Shell ID">
-    <br>
-    
-    <button onclick="getCalculation()">Calculate</button>
-
-    <p id="status-message">Enter values above and click Calculate.</p>
-
-    <div class="output-section">
-        <p>Negative SF Length: <span id="output_sflength">--</span></p>
-        <p>Head ID: <span id="output_headid">--</span></p>
-        <p>Head OD: <span id="output_headod">--</span></p>
+        <p class="status-message" id="statusMessage"></p>
     </div>
 
-    <script>
-        // *** 1. REPLACE THIS URL with your actual Apps Script Web App URL ***
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUNC2_sw77o-fGLIbj1Z37VsdKQpDLRHN5q685abVkOzlrNO0L8GcsEkxW54UkmSVd/exec'; 
-
-        // Get the specific output elements
-        const statusMessage = document.getElementById('status-message');
-        const sfLengthOutput = document.getElementById('output_sflength');
-        const headIdOutput = document.getElementById('output_headid');
-        const headOdOutput = document.getElementById('output_headod');
-
-        function clearOutputs() {
-            sfLengthOutput.innerText = '--';
-            headIdOutput.innerText = '--';
-            headOdOutput.innerText = '--';
-        }
-
-        async function getCalculation() {
-            statusMessage.innerText = 'Calculating...';
-            statusMessage.classList.remove('error');
-            clearOutputs(); // Clear previous results
-
-            const inputs = {
-                ShellTHK: document.getElementById('shellThk').value,
-                HeadTHK: document.getElementById('headThk').value,
-                ShellID: document.getElementById('shellId').value
-            };
-
-            // Check if all fields are filled
-            if (!inputs.ShellTHK || !inputs.HeadTHK || !inputs.ShellID) {
-                statusMessage.innerText = 'Please enter all three values.';
-                statusMessage.classList.add('error');
-                return;
-            }
-
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Ensures successful preflight/CORS
-                    body: JSON.stringify(inputs)
-                });
-
-                // The response might be successful but contain an Apps Script error object
-                const data = await response.json();
-                
-                if (data.error) {
-                    // Check if the Apps Script returned a logged error
-                    throw new Error("Apps Script Error: " + data.error);
-                }
-
-                // 2. Check for all three expected results (result1, result2, result3)
-                if (data.result1 !== undefined && data.result2 !== undefined && data.result3 !== undefined) {
-                    
-                    // Assign each result to its specific output span
-                    sfLengthOutput.innerText = data.result1;
-                    headIdOutput.innerText = data.result2;
-                    headOdOutput.innerText = data.result3;
-                    
-                    statusMessage.innerText = 'Calculation Complete!';
-                    
-                } else {
-                    throw new Error("Server returned data in an unexpected format.");
-                }
-
-            } catch (error) {
-                console.error('Calculation Failed:', error);
-                statusMessage.innerText = 'An error occurred. Check the console for details.';
-                statusMessage.classList.add('error');
-            }
-        }
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>

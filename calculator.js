@@ -10,11 +10,15 @@ function calculate() {
     let shellOD = -1;
     let headNAR = -1;
     let headIR = -1;
+    let headIR_old = -1;
     let headOR = -1;
+    let headOR_old = -1;
     let deltaX = -1;
     
     do{
         Y_old = Y;
+        headIR_old = headIR;
+        headOR_old = headOR;
         
         shellNAD = shellThk + shellId || 0;
         shellOD = 2*shellThk + shellId || 0;
@@ -30,8 +34,8 @@ function calculate() {
 
     }while(Y >= 3*deltaX);
 
-    let headId = headIR*2;
-    let headOd = headOR*2;
+    let headId = headIR_old*2;
+    let headOd = headOR_old*2;
     let nsfLength = Y_old;
 
     document.getElementById("headId").textContent = headId;

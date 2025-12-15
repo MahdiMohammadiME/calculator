@@ -22,7 +22,7 @@ function calculate() {
         headNAR = shellNAD/2 - count;
         headIR = headNAR - headThk/2;
     
-        Y = math.sqrt(headIR**2 - (shellThk/2 - shellNAD/2)**2);
+        Y = Math.sqrt(headIR**2 - (shellThk/2 - shellNAD/2)**2);
         headOR = headNAR + headThk/2;
         deltaX = shellThk/2 - (headOR - shellNAD/2);
     

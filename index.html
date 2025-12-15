@@ -15,9 +15,17 @@
             padding: 6px;
             width: 200px;
         }
+        .unit {
+            margin-left: 5px;
+        }
         .result {
             margin-top: 20px;
             font-weight: bold;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -26,18 +34,21 @@
 <h2>Engineering Parameter Calculator</h2>
 
 <label>Shell THK:</label>
-<input type="number" id="shellThk" oninput="calculate()" />
+<input type="number" id="shellThk" /> <span class="unit">mm</span>
 
 <label>Head THK:</label>
-<input type="number" id="headThk" oninput="calculate()" />
+<input type="number" id="headThk" /> <span class="unit">mm</span>
 
 <label>Shell ID:</label>
-<input type="number" id="shellId" oninput="calculate()" />
+<input type="number" id="shellId" /> <span class="unit">mm</span>
+
+<br>
+<button onclick="calculate()">Calculate</button>
 
 <div class="result">
-    <p>Head ID: <span id="headId">-</span></p>
-    <p>Head OD: <span id="headOd">-</span></p>
-    <p>NSF Length: <span id="nsfLength">-</span></p>
+    <p>Head ID: <span id="headId">-</span> mm</p>
+    <p>Head OD: <span id="headOd">-</span> mm</p>
+    <p>NSF Length: <span id="nsfLength">-</span> mm</p>
 </div>
 
 <script>

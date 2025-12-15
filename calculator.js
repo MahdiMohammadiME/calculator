@@ -5,19 +5,26 @@ function calculate() {
 
     let count = 0;
     let Y = 0;
+    let Y_old = -1;
+    let shellNAD = -1;
+    let shellOD = -1;
+    let headNAR = -1;
+    let headIR = -1;
+    let headOR = -1;
+    let deltaX = -1;
     
     do{
-        let Y_old = Y;
+        Y_old = Y;
         
-        let shellNAD = shellThk + shellId || 0;
-        let shellOD = 2*shellThk + shellId || 0;
+        shellNAD = shellThk + shellId || 0;
+        shellOD = 2*shellThk + shellId || 0;
     
-        let headNAR = shellNAD/2 - count;
-        let headIR = headNAR - headThk/2;
+        headNAR = shellNAD/2 - count;
+        headIR = headNAR - headThk/2;
     
         Y = math.sqrt(headIR**2 - (shellThk/2 - shellNAD/2)**2);
-        let headOR = headNAR + headThk/2;
-        let deltaX = shellThk/2 - (headOR - shellNAD/2);
+        headOR = headNAR + headThk/2;
+        deltaX = shellThk/2 - (headOR - shellNAD/2);
     
         count++;
 

@@ -36,7 +36,7 @@ function calculate() {
 
     let headId = headIR_old*2;
     let headOd = headOR_old*2;
-    let nsfLength = Y_old;
+    let nsfLength = Math.round(Y_old);
 
     document.getElementById("headId").textContent = headId;
     document.getElementById("headOd").textContent = headOd;

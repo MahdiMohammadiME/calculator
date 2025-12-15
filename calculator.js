@@ -15,7 +15,7 @@ function calculate() {
         let headNAR = shellNAD/2 - count;
         let headIR = headNAR - headThk/2;
     
-        let Y = math.sqrt(headIR**2 - (shellThk/2 - shellNAD/2)**2);
+        Y = math.sqrt(headIR**2 - (shellThk/2 - shellNAD/2)**2);
         let headOR = headNAR + headThk/2;
         let deltaX = shellThk/2 - (headOR - shellNAD/2);
     

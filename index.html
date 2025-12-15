@@ -3,30 +3,11 @@
 <head>
     <title>Engineering Calculator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-        label {
-            display: block;
-            margin-top: 15px;
-        }
-        input {
-            padding: 6px;
-            width: 200px;
-        }
-        .unit {
-            margin-left: 5px;
-        }
-        .result {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
+        body { font-family: Arial; margin: 40px; }
+        label { display: block; margin-top: 15px; }
+        input { padding: 6px; width: 200px; }
+        button { margin-top: 20px; padding: 10px 20px; }
+        .result { margin-top: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -34,13 +15,13 @@
 <h2>Engineering Parameter Calculator</h2>
 
 <label>Shell THK:</label>
-<input type="number" id="shellThk" /> <span class="unit">mm</span>
+<input type="number" id="shellThk"> mm
 
 <label>Head THK:</label>
-<input type="number" id="headThk" /> <span class="unit">mm</span>
+<input type="number" id="headThk"> mm
 
 <label>Shell ID:</label>
-<input type="number" id="shellId" /> <span class="unit">mm</span>
+<input type="number" id="shellId"> mm
 
 <br>
 <button onclick="calculate()">Calculate</button>
@@ -51,23 +32,8 @@
     <p>NSF Length: <span id="nsfLength">-</span> mm</p>
 </div>
 
-<script>
-function calculate() {
-    let shellThk = parseFloat(document.getElementById("shellThk").value) || 0;
-    let headThk = parseFloat(document.getElementById("headThk").value) || 0;
-    let shellId = parseFloat(document.getElementById("shellId").value) || 0;
-
-    // Formulas
-    let headId = shellThk * 2;
-    let headOd = headThk * 3;
-    let nsfLength = shellId * 4;
-
-    // Display results
-    document.getElementById("headId").textContent = headId;
-    document.getElementById("headOd").textContent = headOd;
-    document.getElementById("nsfLength").textContent = nsfLength;
-}
-</script>
+<!-- Link to external JS file -->
+<script src="calculator.js"></script>
 
 </body>
 </html>

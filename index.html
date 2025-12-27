@@ -4,40 +4,49 @@
     <title>NSF Calculator</title>
     <style>
         body { font-family: Arial; margin: 40px; }
+        /* Just a little spacing for the table */
+        table { width: 100%; border-collapse: collapse; }
+        td { vertical-align: top; padding: 20px; }
         label { display: block; margin-top: 15px; }
-        input { padding: 6px; width: 200px; }
-        button { margin-top: 20px; padding: 10px 20px; }
-        .result { margin-top: 20px; font-weight: bold; }
+        input { padding: 6px; width: 180px; }
+        .result { margin-top: 20px; font-weight: bold; background: #eee; padding: 10px; }
     </style>
 </head>
 <body>
 
 <h2>Negative Straight Flange Calculator</h2>
-<p>Spherical Heads Attached to Shells</p>
-<p>as per ASME Section VIII Division 1, UW-13.1</p>
 
-<img src="UW13.1.png" alt="Figure UW-13.1">
+<table>
+  <tr>
+    <td width="50%">
+        <p>Spherical Heads Attached to Shells</p>
+        <p>as per ASME Section VIII Division 1, UW-13.1</p>
 
-<label>Shell THK (t<sub>s</sub>):</label>
-<input type="number" id="shellThk"> mm
+        <label>Shell THK (t<sub>s</sub>):</label>
+        <input type="number" id="shellThk"> mm
 
-<label>Head THK (t<sub>h</sub>):</label>
-<input type="number" id="headThk"> mm
+        <label>Head THK (t<sub>h</sub>):</label>
+        <input type="number" id="headThk"> mm
 
-<label>Shell ID:</label>
-<input type="number" id="shellId"> mm
+        <label>Shell ID:</label>
+        <input type="number" id="shellId"> mm
 
-<br>
-<button onclick="calculate()">Calculate</button>
+        <br>
+        <button onclick="calculate()">Calculate</button>
 
-<div class="result">
-    <p>Head ID: <span id="headId">-</span> mm</p>
-    <p>Head OD: <span id="headOd">-</span> mm</p>
-    <p>NSF Length: <span id="nsfLength">-</span> mm</p>
-</div>
+        <div class="result">
+            <p>Head ID: <span id="headId">-</span> mm</p>
+            <p>Head OD: <span id="headOd">-</span> mm</p>
+            <p>NSF Length: <span id="nsfLength">-</span> mm</p>
+        </div>
+    </td>
 
-<!-- Link to external JS file -->
+    <td width="50%">
+        <img src="UW13.1.png" alt="Figure UW-13.1" style="width:100%; max-width:400px;">
+    </td>
+  </tr>
+</table>
+
 <script src="calculator.js"></script>
-
 </body>
 </html>

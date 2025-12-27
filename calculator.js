@@ -20,8 +20,8 @@ function calculate() {
         headIR_old = headIR;
         headOR_old = headOR;
         
-        shellNAD = shellThk + shellId || 0;
-        shellOD = 2*shellThk + shellId || 0;
+        shellNAD = shellThk + shellId;
+        shellOD = 2*shellThk + shellId;
     
         headNAR = shellNAD/2 - count;
         headIR = headNAR - headThk/2;

@@ -9,7 +9,20 @@
         td { vertical-align: top; padding: 20px; }
         label { display: block; margin-top: 15px; }
         input { padding: 6px; width: 180px; }
-        button{ margin-top: 25px; padding: 10px 20px; cursor: pointer;}
+        button { 
+            margin-top: 25px; 
+            padding: 10px 20px; 
+            cursor: pointer; 
+        }
+        img {
+            max-width: 100%;    /* Prevents the image from being wider than the column */
+            height: auto;       /* Keeps the image proportions correct */
+            margin: 20px;       /* Adds 20px of space on all four sides */
+            border: 1px solid #ddd; /* Optional: adds a light border to define the image area */
+            display: block;     /* Helps with centering */
+            margin-left: auto;  /* Centers the image horizontally */
+            margin-right: auto;
+        }
         .result { margin-top: 20px; font-weight: bold; padding: 10px; } /* background: #eee */
     </style>
 </head>

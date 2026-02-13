@@ -1,3 +1,5 @@
+// this is a change from nano after git
+
 function calculate() {
     let shellThk = parseFloat(document.getElementById("shellThk").value) || 0;
     let headThk = parseFloat(document.getElementById("headThk").value) || 0;
